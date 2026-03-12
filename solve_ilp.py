@@ -20,7 +20,7 @@ from itertools import product
 with open("section_cache.json") as f:
     SECTIONS: dict[str, int] = json.load(f)
 
-# Requirements (same as solve_coverage.py)
+# Requirements
 REQUIREMENTS = {
     "CS-Y1": [
         {"type": "single", "courses": ["CSC110Y1"]},
@@ -245,15 +245,7 @@ def solve():
 
     feasible_pys = [py for py in REQUIREMENTS if py not in infeasible]
 
-    try:
-        from pulp import LpMinimize, LpProblem, LpVariable, lpSum, LpBinary, value, LpStatus
-        solve_with_pulp(feasible_pys, py_choices)
-    except ImportError:
-        print("PuLP not installed. Installing...")
-        import subprocess
-        subprocess.check_call(["uv", "pip", "install", "pulp"])
-        from pulp import LpMinimize, LpProblem, LpVariable, lpSum, LpBinary, value, LpStatus
-        solve_with_pulp(feasible_pys, py_choices)
+    solve_with_pulp(feasible_pys, py_choices)
 
 
 def solve_with_pulp(feasible_pys, py_choices):
