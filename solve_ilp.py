@@ -53,7 +53,8 @@ REQUIREMENTS = {
         {"type": "single", "courses": ["MAT327H1"]},
         {"type": "single", "courses": ["MAT347Y1"]},
         {"type": "single", "courses": ["MAT351Y1"]},
-        {"type": "or", "courses": ["MAT354H1", "MAT357H1"]},
+        {"type": "single", "courses": ["MAT354H1"]},
+        {"type": "single", "courses": ["MAT357H1"]},
         {"type": "or", "courses": ["MAT363H1", "MAT367H1"]},
     ],
     "MATH-Y4": [
@@ -84,7 +85,8 @@ REQUIREMENTS = {
         {"type": "or", "courses": ["MAT137Y1", "MAT157Y1"]},
         {"type": "or", "courses": ["MAT223H1", "MAT240H1"]},
         {"type": "single", "courses": ["STA130H1"]},
-        {"type": "or", "courses": ["CSC108H1", "CSC148H1", "CSC110Y1", "CSC111H1"]},
+        {"type": "or", "courses": ["CSC108H1", "CSC148H1"]},
+        {"type": "or", "courses": ["CSC110Y1", "CSC111H1"]},
     ],
     "DS-Y2": [
         {"type": "or", "courses": ["MAT237Y1", "MAT257Y1"]},
@@ -98,6 +100,7 @@ REQUIREMENTS = {
         {"type": "single", "courses": ["STA302H1"]},
         {"type": "or", "courses": ["STA303H1", "STA305H1"]},
         {"type": "single", "courses": ["STA355H1"]},
+        {"type": "or", "courses": ["STA314H1", "CSC311H1"]},
         {"type": "single", "courses": ["CSC209H1"]},
         {"type": "or", "courses": ["CSC263H1", "CSC265H1"]},
         {"type": "single", "courses": ["CSC343H1"]},
@@ -105,7 +108,8 @@ REQUIREMENTS = {
         {"type": "single", "courses": ["JSC370H1"]},
     ],
     "PHYS-Y1": [
-        {"type": "or", "courses": ["MAT135H1", "MAT136H1", "MAT137Y1", "MAT157Y1"]},
+        {"type": "or", "courses": ["MAT135H1", "MAT136H1"]},
+        {"type": "or", "courses": ["MAT137Y1", "MAT157Y1"]},
         {"type": "or", "courses": ["MAT223H1", "MAT240H1"]},
         {"type": "or", "courses": ["PHY131H1", "PHY151H1"]},
         {"type": "or", "courses": ["PHY132H1", "PHY152H1"]},
@@ -156,7 +160,8 @@ REQUIREMENTS = {
     "COGSCI-Y1": [
         {"type": "or", "courses": ["CSC108H1", "CSC110Y1"]},
         {"type": "or", "courses": ["CSC111H1", "CSC148H1"]},
-        {"type": "or", "courses": ["MAT135H1", "MAT136H1", "MAT137Y1", "MAT157Y1"]},
+        {"type": "or", "courses": ["MAT135H1", "MAT136H1"]},
+        {"type": "or", "courses": ["MAT137Y1", "MAT157Y1"]},
     ],
     "COGSCI-Y2": [
         {"type": "single", "courses": ["COG250Y1"]},
@@ -174,7 +179,8 @@ REQUIREMENTS = {
     "ECON-Y1": [
         {"type": "single", "courses": ["ECO101H1"]},
         {"type": "single", "courses": ["ECO102H1"]},
-        {"type": "or", "courses": ["MAT135H1", "MAT136H1", "MAT137Y1", "MAT157Y1"]},
+        {"type": "or", "courses": ["MAT135H1", "MAT136H1"]},
+        {"type": "or", "courses": ["MAT137Y1", "MAT157Y1"]},
     ],
     "ECON-Y2": [
         {"type": "single", "courses": ["ECO206Y1"]},
