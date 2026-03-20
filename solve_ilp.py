@@ -192,6 +192,39 @@ REQUIREMENTS = {
         {"type": "single", "courses": ["ECO326H1"]},
         {"type": "single", "courses": ["ECO375H1"]},
     ],
+    "ENG-Y1": [
+        {"type": "or", "courses": ["APS105H1", "APS106H1"]},
+        {"type": "single", "courses": ["APS112H1"]},
+        {"type": "single", "courses": ["ECE110H1"]},
+        {"type": "single", "courses": ["MAT187H1"]},
+        {"type": "single", "courses": ["MIE100H1"]},
+        {"type": "single", "courses": ["CIV100H1"]},
+        {"type": "single", "courses": ["MAT186H1"]},
+        {"type": "single", "courses": ["MAT188H1"]},
+    ],
+    "ECE-Y2": [
+        {"type": "single", "courses": ["ECE212H1"]},
+        {"type": "single", "courses": ["ECE216H1"]},
+        {"type": "single", "courses": ["ECE221H1"]},
+        {"type": "single", "courses": ["ECE243H1"]},
+        {"type": "or", "courses": ["ECE295H1", "ECE297H1"]},
+    ],
+    "ECE-Y3": [
+        {"type": "or", "courses": ["ECE302H1", "ECE311H1"]},
+        {"type": "or", "courses": ["ECE342H1", "ECE344H1", "ECE345H1", "ECE350H1", "ECE361H1"]},
+    ],
+    "INDE-Y2": [
+        {"type": "single", "courses": ["MIE223H1"]},
+        {"type": "single", "courses": ["MIE237H1"]},
+        {"type": "single", "courses": ["MIE240H1"]},
+        {"type": "single", "courses": ["MIE245H1"]},
+        {"type": "single", "courses": ["MIE263H1"]},
+    ],
+    "INDE-Y3": [
+        {"type": "single", "courses": ["MIE350H1"]},
+        {"type": "single", "courses": ["MIE359H1"]},
+        {"type": "single", "courses": ["MIE363H1"]},
+    ],
 }
 
 

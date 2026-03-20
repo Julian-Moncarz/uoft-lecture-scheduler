@@ -6,6 +6,7 @@ mapped to a specific target week.
 Usage:
     python make_calendar.py                    # defaults to next Mon-Fri
     python make_calendar.py 2026-03-16         # specify the Monday of the target week
+    python make_calendar.py 2026-03-16 3       # 3 weeks starting from that Monday
 """
 
 import sys
@@ -26,10 +27,13 @@ OPTIMAL_COURSES = [
     "CSC111H1", "CSC148H1", "CSC240H1", "CSC369H1",
     "ECO101H1", "ECO208Y1", "ECO325H1",
     "ESC190H1", "ESC204H1",
-    "MAT247H1", "MAT267H1", "MAT334H1", "MAT351Y1", "MAT477H1",
+    "MAT188H1", "MAT247H1", "MAT267H1", "MAT334H1", "MAT351Y1", "MAT477H1",
     "PHY131H1", "PHY254H1",
     "PSY270H1", "PSY290H1",
     "STA130H1", "STA261H1", "STA302H1",
+    # Engineering
+    "ECE295H1", "ECE297H1", "ECE302H1", "ECE311H1",
+    "MIE240H1", "MIE350H1",
 ]
 
 # Which programs each course covers (for event descriptions)
@@ -47,6 +51,11 @@ COURSE_COVERS = {
     "PSY270H1": ["COGSCI-Y2"], "PSY290H1": ["COGSCI-Y3"],
     "STA130H1": ["STAT-Y1"], "STA261H1": ["STAT-Y2"],
     "STA302H1": ["STAT-Y3", "DS-Y3"],
+    "MAT188H1": ["ENG-Y1"],
+    "ECE295H1": ["ECE-Y2"], "ECE297H1": ["ECE-Y2"],
+    "ECE302H1": ["ECE-Y3"], "ECE311H1": ["ECE-Y3"],
+    "MIE240H1": ["INDE-Y2"],
+    "MIE350H1": ["INDE-Y3"],
 }
 
 
@@ -139,37 +148,47 @@ def build_events(course_data: dict, code: str, monday: datetime) -> list[str]:
 
 
 def main():
-    # Determine target Monday
+    # Determine target Monday(s)
+    # Usage: make_calendar.py [START_MONDAY] [NUM_WEEKS]
     if len(sys.argv) > 1 and not sys.argv[1].startswith("-"):
         monday = datetime.strptime(sys.argv[1], "%Y-%m-%d")
     else:
-        # Default: next Monday from today
         today = datetime.now()
         days_ahead = (7 - today.weekday()) % 7
         if days_ahead == 0:
             days_ahead = 7
         monday = today.replace(hour=0, minute=0, second=0, microsecond=0) + timedelta(days=days_ahead)
 
-    friday = monday + timedelta(days=4)
-    print(f"Target week: {monday.strftime('%a %b %d')} – {friday.strftime('%a %b %d, %Y')}")
+    num_weeks = int(sys.argv[2]) if len(sys.argv) > 2 else 1
+    mondays = [monday + timedelta(weeks=w) for w in range(num_weeks)]
+
+    last_friday = mondays[-1] + timedelta(days=4)
+    print(f"Target: {monday.strftime('%a %b %d')} – {last_friday.strftime('%a %b %d, %Y')} ({num_weeks} week{'s' if num_weeks > 1 else ''})")
     print(f"Fetching {len(OPTIMAL_COURSES)} courses from UofT API...\n")
 
-    # Fetch all courses in parallel
+    # Fetch all courses in parallel (one fetch, reuse for all weeks)
     all_events = []
     errors = []
+    course_data = {}
 
     with ThreadPoolExecutor(max_workers=10) as pool:
         futures = {pool.submit(fetch_course, c): c for c in OPTIMAL_COURSES}
         for fut in as_completed(futures):
             code = futures[fut]
             try:
-                data = fut.result()
-                events = build_events(data, code, monday)
-                all_events.extend(events)
-                print(f"  {code}: {len(events)} lecture meetings")
+                course_data[code] = fut.result()
             except Exception as e:
                 errors.append(f"{code}: {e}")
                 print(f"  {code}: ERROR — {e}")
+
+    for week_monday in mondays:
+        week_label = week_monday.strftime('%b %d')
+        week_events = []
+        for code, data in course_data.items():
+            events = build_events(data, code, week_monday)
+            week_events.extend(events)
+        all_events.extend(week_events)
+        print(f"  Week of {week_label}: {len(week_events)} events")
 
     if errors:
         print(f"\n{len(errors)} errors encountered")
